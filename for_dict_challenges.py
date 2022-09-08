@@ -12,7 +12,14 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Петя'},
 ]
-# ???
+print('Дан список учеников, нужно посчитать количество повторений каждого имени ученика:')
+list_names =[]
+for names in students:
+    for key,items in names.items():
+        list_names.append(items)
+for name in set(list_names):
+    count_name = list_names.count(name)
+    print(f'{name}: {count_name}')
 
 
 # Задание 2
@@ -26,7 +33,18 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
 ]
-# ???
+print('\nДан список учеников, нужно вывести самое часто повторящееся имя:')
+list_names =[]
+for names in students:
+    for key,items in names.items():
+        list_names.append(items)
+
+from collections import Counter
+
+dict_count = Counter(list_names)
+max_count_name = max(dict_count.values())
+name_count = max(dict_count, key = dict_count.get) # корректоно работает если только одно значение в словаре > других, если два имени встречаются одиноковое количество раз => логику надо переписать/дописать!
+print(f'Самое частое имя среди учеников: {name_count}')
 
 
 # Задание 3
@@ -51,13 +69,23 @@ school_students = [
         {'first_name': 'Саша'},
     ],
 ]
-# ???
+print('\nЕсть список учеников в нескольких классах, нужно вывести самое частое имя в каждом классе:')
+from collections import Counter
+for number_class, students in enumerate(school_students, start =1):
+    list_names =[]
+    for names in students:
+        for key,items in names.items():
+            list_names.append(items)
+    dict_count = Counter(list_names)
+    max_count_name = max(dict_count.values())
+    name_count = max(dict_count, key = dict_count.get) # корректоно работает если только одно значение в словаре > других, если два имени встречаются одиноковое количество раз => логику надо переписать/дописать!
+    print(f' Самое частое имя в классе {number_class}: {name_count}')
 
 
 # Задание 4
 # Для каждого класса нужно вывести количество девочек и мальчиков в нём.
 # Пример вывода:
-# Класс 2a: девочки 2, мальчики 0 
+# Класс 2a: девочки 2, мальчики 0
 # Класс 2б: девочки 0, мальчики 2
 
 school = [
@@ -72,8 +100,18 @@ is_male = {
     'Миша': True,
     'Даша': False,
 }
-# ???
-
+print(f'\nДля каждого класса нужно вывести количество девочек и мальчиков в нём:')
+for school_class in school:
+    number_class = school_class.get('class')
+    male = 0
+    women = 0
+    for stud in school_class.get('students'):
+        name = stud.get('first_name')
+        if is_male.get(name):
+            male += 1
+        else:
+            women += 1
+    print(f'Класс {number_class}: девочки {women}, мальчики {male}')
 
 # Задание 5
 # По информации о учениках разных классов нужно найти класс, в котором больше всего девочек и больше всего мальчиков
@@ -91,5 +129,26 @@ is_male = {
     'Олег': True,
     'Миша': True,
 }
-# ???
+print('\nПо информации о учениках разных классов нужно найти класс, в котором больше всего девочек и больше всего мальчиков:')
+list_male_school = []
+list_women_school = []
+for school_class in school:
+    number_class = school_class.get('class')
+    male = 0
+    women = 0
+    for stud in school_class.get('students'):
+        name = stud.get('first_name')
+        if is_male.get(name):
+            male += 1
+        else:
+            women += 1
+    list_male_school.append((number_class, male))
+    list_women_school.append((number_class, women))
 
+dict_male_school = dict(list_male_school)
+dict_women_school = dict(list_women_school)
+max_class_male = max(dict_male_school, key = dict_male_school.get) # корректоно работает если только одно значение в словаре > других, если два имени встречаются одиноковое количество раз => логику надо переписать/дописать!
+max_class_women = max(dict_women_school, key = dict_women_school.get) # корректоно работает если только одно значение в словаре > других, если два имени встречаются одиноковое количество раз => логику надо переписать/дописать!
+
+print(f'Больше всего мальчиков в классе {max_class_male}')
+print(f'Больше всего девочек в классе {max_class_women}')
