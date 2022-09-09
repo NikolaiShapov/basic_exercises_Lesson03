@@ -35,13 +35,15 @@ is_male = {
 print('Необходимо вывести имена всех учеников из списка, рядом с именем вывести пол ученика:')
 names = ['Оля', 'Петя', 'Вася', 'Маша']
 for name in names:
-    if is_male.get(name) == False:
-        gender = 'женский'
-    elif is_male.get(name) == True:
-        gender = 'мужской'
-    else:
+    try:
+        if is_male[name] is False:
+            gender = 'женский'
+        else:
+            gender = 'мужской'
+        print(f'{name}: {gender}')
+    except:
         gender = 'Гибрид'
-    print(f'{name}: {gender}')
+        print(f'{name}: {gender}')
 
 
 # Задание 4
@@ -55,6 +57,8 @@ groups = [
     ['Вася', 'Маша'],
     ['Вася', 'Маша', 'Саша', 'Женя'],
     ['Оля', 'Петя', 'Гриша'],
+    ['Оля'],
+    ['Оля', 'Петя', 'Гриша', 'Вася', 'Света'],
 ]
 print('Нужно вывести количество групп и для каждой группы – количество учеников в ней:')
 count_group = len(groups)
