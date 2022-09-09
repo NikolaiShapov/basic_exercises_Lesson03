@@ -15,8 +15,7 @@ students = [
 print('Дан список учеников, нужно посчитать количество повторений каждого имени ученика:')
 list_names =[]
 for names in students:
-    for key,items in names.items():
-        list_names.append(items)
+    list_names.append(names['first_name'])
 for name in set(list_names):
     count_name = list_names.count(name)
     print(f'{name}: {count_name}')
@@ -32,6 +31,7 @@ students = [
     {'first_name': 'Маша'},
     {'first_name': 'Маша'},
     {'first_name': 'Оля'},
+    {'first_name': 'Вася'},
 ]
 print('\nДан список учеников, нужно вывести самое часто повторящееся имя:')
 list_names =[]
@@ -41,9 +41,14 @@ for names in students:
 
 from collections import Counter
 
+name_count =[]
 dict_count = Counter(list_names)
 max_count_name = max(dict_count.values())
-name_count = max(dict_count, key = dict_count.get) # корректоно работает если только одно значение в словаре > других, если два имени встречаются одиноковое количество раз => логику надо переписать/дописать!
+if list(dict_count.values()).count(max_count_name) > 1:
+    for item in dict_count:
+        if dict_count[item] == max_count_name:
+            name_count.append(item)
+# name_count = max(dict_count, key = dict_count.get) # корректоно работает если только одно значение в словаре > других, если два имени встречаются одиноковое количество раз => логику надо переписать/дописать!
 print(f'Самое частое имя среди учеников: {name_count}')
 
 
@@ -67,18 +72,25 @@ school_students = [
         {'first_name': 'Петя'},
         {'first_name': 'Женя'},
         {'first_name': 'Саша'},
+        {'first_name': 'Петя'},
     ],
 ]
 print('\nЕсть список учеников в нескольких классах, нужно вывести самое частое имя в каждом классе:')
 from collections import Counter
+
 for number_class, students in enumerate(school_students, start =1):
     list_names =[]
+    name_count = []
     for names in students:
-        for key,items in names.items():
-            list_names.append(items)
+        list_names.append(names['first_name'])
     dict_count = Counter(list_names)
     max_count_name = max(dict_count.values())
-    name_count = max(dict_count, key = dict_count.get) # корректоно работает если только одно значение в словаре > других, если два имени встречаются одиноковое количество раз => логику надо переписать/дописать!
+    if list(dict_count.values()).count(max_count_name) > 1:
+        for item in dict_count:
+            if dict_count[item] == max_count_name:
+                name_count.append(item)
+    else:
+        name_count = max(dict_count, key = dict_count.get)
     print(f' Самое частое имя в классе {number_class}: {name_count}')
 
 
@@ -102,11 +114,11 @@ is_male = {
 }
 print(f'\nДля каждого класса нужно вывести количество девочек и мальчиков в нём:')
 for school_class in school:
-    number_class = school_class.get('class')
+    number_class = school_class['class']
     male = 0
     women = 0
-    for stud in school_class.get('students'):
-        name = stud.get('first_name')
+    for stud in school_class['students']:
+        name = stud['first_name']
         if is_male.get(name):
             male += 1
         else:
