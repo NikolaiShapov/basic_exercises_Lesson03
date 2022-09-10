@@ -44,11 +44,9 @@ from collections import Counter
 name_count =[]
 dict_count = Counter(list_names)
 max_count_name = max(dict_count.values())
-if list(dict_count.values()).count(max_count_name) > 1:
-    for item in dict_count:
-        if dict_count[item] == max_count_name:
-            name_count.append(item)
-# name_count = max(dict_count, key = dict_count.get) # корректоно работает если только одно значение в словаре > других, если два имени встречаются одиноковое количество раз => логику надо переписать/дописать!
+for item in dict_count:
+    if dict_count[item] == max_count_name:
+        name_count.append(item)
 print(f'Самое частое имя среди учеников: {name_count}')
 
 
