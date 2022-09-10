@@ -53,6 +53,15 @@ for name in names:
 # Группа 1: 2 ученика.
 # Группа 2: 4 ученика.
 
+def the_ending_case(text):
+    number = int(text)
+    if 5 <= number % 100 <= 20:
+        return 'ов'
+    elif 2 <= number % 100 <= 4:
+        return 'а'
+    else:
+        return ''
+
 groups = [
     ['Вася', 'Маша'],
     ['Вася', 'Маша', 'Саша', 'Женя'],
@@ -64,7 +73,8 @@ print('Нужно вывести количество групп и для ка�
 count_group = len(groups)
 print(f'Всего {count_group} группы.')
 for number_group, group in enumerate(groups, start =1):
-    print(f'Группа {number_group}: {len(group)} ученика.')
+    ending_case = the_ending_case(len(group))
+    print(f'Группа {number_group}: {len(group)} ученик{ending_case}.')
 
 
 # Задание 5
