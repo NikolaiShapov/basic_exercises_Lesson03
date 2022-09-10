@@ -41,13 +41,12 @@ for names in students:
 
 from collections import Counter
 
-name_count =[]
 dict_count = Counter(list_names)
 max_count_name = max(dict_count.values())
+print('Самое частое имя среди учеников: ', end = '')
 for item in dict_count:
     if dict_count[item] == max_count_name:
-        name_count.append(item)
-print(f'Самое частое имя среди учеников: {name_count}')
+        print(item, end = ' ')
 
 
 # Задание 3
